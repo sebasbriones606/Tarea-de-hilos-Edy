@@ -13,30 +13,30 @@ public class SleepingBarber {
 	
 	public static void main (String a[]) throws InterruptedException {	
 		
-		int noOfBarbers=2, customerId=1, noOfCustomers=100, noOfChairs;	//initializing the number of barber and customers
+		int noOfBarbers=2, customerId=1, noOfCustomers=100, noOfChairs;	//inicializando el número de peluqueros y clientes
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Enter the number of barbers(M):");			//input M barbers
+		System.out.println("Enter the number of barbers(M):");			//entrada M barberos
     	noOfBarbers=sc.nextInt();
     	
-    	System.out.println("Enter the number of waiting room"			//input N waiting chairs
+    	System.out.println("Enter the number of waiting room"			//entrada N sillas de espera
     			+ " chairs(N):");
     	noOfChairs=sc.nextInt();
     	
-//    	System.out.println("Enter the number of customers:");			//inout the number of customers for the shop
+//    	System.out.println("Enter the number of customers:");			//Entrar el número de clientes de la tienda.
 //    	noOfCustomers=sc.nextInt();
     	
-		ExecutorService exec = Executors.newFixedThreadPool(12);		//initializing with 12 threads as multiple of cores in the CPU, here 6
-    	Bshop shop = new Bshop(noOfBarbers, noOfChairs);				//initializing the barber shop with the number of barbers
-    	Random r = new Random();  										//a random number to calculate delays for customer arrivals and haircut
+		ExecutorService exec = Executors.newFixedThreadPool(12);		//inicializando con 12 subprocesos como múltiplos de núcleos en la CPU, aquí 6
+    	Bshop shop = new Bshop(noOfBarbers, noOfChairs);				//Inicializando la peluquería con el número de peluqueros.
+    	Random r = new Random();  										//un número aleatorio para calcular retrasos en la llegada de clientes y cortes de pelo
        	    	
         System.out.println("\nBarber shop opened with "
         		+noOfBarbers+" barber(s)\n");
         
-        long startTime  = System.currentTimeMillis();					//start time of program
+        long startTime  = System.currentTimeMillis();					//hora de inicio del programa
         
-        for(int i=1; i<=noOfBarbers;i++) {								//generating the specified number of threads for barber
+        for(int i=1; i<=noOfBarbers;i++) {								//generando el número especificado de hilos para barbero
         	
         	Barber barber = new Barber(shop, i);	
         	Thread thbarber = new Thread(barber);
