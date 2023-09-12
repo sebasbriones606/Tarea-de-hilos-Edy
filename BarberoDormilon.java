@@ -193,7 +193,7 @@ class Bshop {
             
             customer = (Customer)((LinkedList<?>)listCustomer).poll();	//toma al primer cliente del encabezado de la lista para cortarle el pelo
             
-            System.out.println("Customer "+customer.getCustomerId()+
+            System.out.println("Cliente "+customer.getCustomerId()+
             		" encuentra al barbero dormido y se despierta "
             		+ "el barbero "+barberId);
         }
@@ -204,8 +204,8 @@ class Bshop {
         	
         	availableBarbers--; 										//disminuye el recuento de barberos disponibles cuando uno de ellos comienza
         																//Cortar el pelo del cliente y el cliente duerme.
-            System.out.println("Barbero "+barberId+" cortar el pelo de "+
-            		customer.getCustomerId()+ " así que el cliente duerme");
+            System.out.println("Barbero "+barberId+" esta cortando el pelo de cliente"+
+            		customer.getCustomerId()+ " asi que el cliente duerme");
         	
             double val = r.nextGaussian() * 2000 + 4000;				//El tiempo necesario para cortar el cabello del cliente tiene una media de 4000 milisegundos y
         	millisDelay = Math.abs((int) Math.round(val));				//y desviación estándar de 2000 milisegundos
