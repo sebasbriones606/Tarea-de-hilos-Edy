@@ -17,22 +17,22 @@ public class SleepingBarber {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Enter the number of barbers(M):");			//entrada M barberos
+		System.out.println("Ingrese el numero de barberos(M):");			//entrada M barberos
     	noOfBarbers=sc.nextInt();
     	
-    	System.out.println("Enter the number of waiting room"			//entrada N sillas de espera
-    			+ " chairs(N):");
+    	System.out.println("Ingrese numero de sillas de espera"			//entrada N sillas de espera
+    			+ " sillas(N):");
     	noOfChairs=sc.nextInt();
     	
-//    	System.out.println("Enter the number of customers:");			//Entrar el número de clientes de la tienda.
-//    	noOfCustomers=sc.nextInt();
+    	System.out.println("Ingrese el numero de clientes");			//Entrar el número de clientes de la tienda.
+    	noOfCustomers=sc.nextInt();
     	
 		ExecutorService exec = Executors.newFixedThreadPool(12);		//inicializando con 12 subprocesos como múltiplos de núcleos en la CPU, aquí 6
     	Bshop shop = new Bshop(noOfBarbers, noOfChairs);				//Inicializando la peluquería con el número de peluqueros.
     	Random r = new Random();  										//un número aleatorio para calcular retrasos en la llegada de clientes y cortes de pelo
        	    	
-        System.out.println("\nBarber shop opened with "
-        		+noOfBarbers+" barber(s)\n");
+        System.out.println("\nBarberia esta abierta con "
+        		+noOfBarbers+" barbero(s)\n");
         
         long startTime  = System.currentTimeMillis();					//hora de inicio del programa
         
@@ -69,16 +69,16 @@ public class SleepingBarber {
  
         long elapsedTime = System.currentTimeMillis() - startTime;		//para calcular la hora de finalización del programa
         
-        System.out.println("\nBarber shop closed");
-        System.out.println("\nTotal time elapsed in seconds"
-        		+ " for serving "+noOfCustomers+" customers by "
-        		+noOfBarbers+" barbers with "+noOfChairs+
-        		" chairs in the waiting room is: "
+        System.out.println("\nBarberia ha cerrado");
+        System.out.println("\nTotal de tiempo en segundos"
+        		+ " para atender "+noOfCustomers+" clientes por "
+        		+noOfBarbers+" barberos con "+noOfChairs+
+        		" sillas en la sala de espera es: "
         		+TimeUnit.MILLISECONDS
         	    .toSeconds(elapsedTime));
-        System.out.println("\nTotal customers: "+noOfCustomers+
-        		"\nTotal customers served: "+shop.getTotalHairCuts()
-        		+"\nTotal customers lost: "+shop.getCustomerLost());
+        System.out.println("\nClientes totales: "+noOfCustomers+
+        		"\nTotal de clientes atendidos: "+shop.getTotalHairCuts()
+        		+"\nTotal de clientes perdidos: "+shop.getCustomerLost());
                
         sc.close();
     }
@@ -178,8 +178,8 @@ class Bshop {
         															 	//Errores inesperados en la lista cuando varios subprocesos acceden a ella.
             while(listCustomer.size()==0) {
             
-                System.out.println("\nBarber "+barberId+" is waiting "
-                		+ "for the customer and sleeps in his chair");
+                System.out.println("\nBarbero "+barberId+" esta esperando "
+                		+ "a el cliente y duerme en su silla.");
                 
                 try {
                 
@@ -194,8 +194,8 @@ class Bshop {
             customer = (Customer)((LinkedList<?>)listCustomer).poll();	//toma al primer cliente del encabezado de la lista para cortarle el pelo
             
             System.out.println("Customer "+customer.getCustomerId()+
-            		" finds the barber asleep and wakes up "
-            		+ "the barber "+barberId);
+            		" encuentra al barbero dormido y se despierta "
+            		+ "el barbero "+barberId);
         }
         
         int millisDelay=0;
@@ -204,23 +204,23 @@ class Bshop {
         	
         	availableBarbers--; 										//disminuye el recuento de barberos disponibles cuando uno de ellos comienza
         																//Cortar el pelo del cliente y el cliente duerme.
-            System.out.println("Barber "+barberId+" cutting hair of "+
-            		customer.getCustomerId()+ " so customer sleeps");
+            System.out.println("Barbero "+barberId+" cortar el pelo de "+
+            		customer.getCustomerId()+ " así que el cliente duerme");
         	
             double val = r.nextGaussian() * 2000 + 4000;				//El tiempo necesario para cortar el cabello del cliente tiene una media de 4000 milisegundos y
         	millisDelay = Math.abs((int) Math.round(val));				//y desviación estándar de 2000 milisegundos
         	Thread.sleep(millisDelay);
         	
-        	System.out.println("\nCompleted Cutting hair of "+
-        			customer.getCustomerId()+" by barber " + 
-        			barberId +" in "+millisDelay+ " milliseconds.");
+        	System.out.println("\nCorte de pelo terminado de "+
+        			customer.getCustomerId()+" por barbero " + 
+        			barberId +" en "+millisDelay+ " milisegundos.");
         
         	totalHairCuts.incrementAndGet();
             															//sale por la puerta
             if(listCustomer.size()>0) {									
-            	System.out.println("Barber "+barberId+					//El barbero encuentra a un cliente dormido en la sala de espera, lo despierta y
-            			" wakes up a customer in the "					//Y luego va a su silla y duerme hasta que llega un cliente.
-            			+ "waiting room");		
+            	System.out.println("Barbero "+barberId+					//El barbero encuentra a un cliente dormido en la sala de espera, lo despierta y
+            			" despierta a un cliente en el "					//Y luego va a su silla y duerme hasta que llega un cliente.
+            			+ "sala de espera");		
             }
             
             availableBarbers++;											//El peluquero está disponible para cortar el pelo al próximo cliente.
@@ -234,16 +234,16 @@ class Bshop {
  
     public void add(Customer customer) {
     
-        System.out.println("\nCustomer "+customer.getCustomerId()+
-        		" enters through the entrance door in the the shop at "
+        System.out.println("\nCliente "+customer.getCustomerId()+
+        		" entra por la puerta de entrada a la tienda de "
         		+customer.getInTime());
  
         synchronized (listCustomer) {
         
             if(listCustomer.size() == nchair) {							//No hay sillas disponibles para el cliente por lo que el cliente abandona la tienda.            
-                System.out.println("\nNo chair available "
-                		+ "for customer "+customer.getCustomerId()+
-                		" so customer leaves the shop");
+                System.out.println("\nNo hay silla disponible "
+                		+ "para el cliente "+customer.getCustomerId()+
+                		" así que el cliente sale de la tienda");
                 
               customersLost.incrementAndGet();
                 
@@ -258,9 +258,9 @@ class Bshop {
             															//se sienta en la silla de la sala de espera
             	((LinkedList<Customer>)listCustomer).offer(customer);
                 
-            	System.out.println("All barber(s) are busy so "+
+            	System.out.println("Todos los barberos están ocupados por lo "+
             			customer.getCustomerId()+
-                		" takes a chair in the waiting room");
+                		" toma una silla en la sala de espera");
                  
                 if(listCustomer.size()==1)
                     listCustomer.notify();
